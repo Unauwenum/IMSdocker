@@ -1,0 +1,22 @@
+version: '3'
+services:
+  imsserver:
+    build: .
+    container_name: imsservercontainer
+    #volumes:
+    #  - ./:/usr/src/app
+    command: node imsserver.js
+    ports:
+      - "8080:8080"
+  imsclient:
+    build: .
+    container_name: imsclientcontainer
+    #volumes:
+    #  - ./:/usr/src/app
+    environment:
+      - SERVER=imsserver
+    command: node imsclient.js
+    links:
+      - imsserver
+    depends_on:
+      - imsserver

@@ -1,0 +1,45 @@
+<!--Nur um vernünftig bearbeiten zu können-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ISM</title>
+    <script type="text/javascript" src="IMS_Stock.js"></script>
+    <link href="index.css" rel="stylesheet">
+</head>
+
+<body onload="loadDynamicContent()">
+    <div id="header">
+        <p class="headerElements">Depowert:</p>
+        <p class="headerElements" id="pDepowertHeader">--</p>
+        <p class="headerElements">Bargeld:</p>
+        <p class="headerElements" id="pBargeldHeader">--</p>
+        <p class="headerElements">Veränderung (letzten 24h):</p>
+        <p class="headerElements" id="pVeränderungHeader">--</p>
+        <p class="headerElements">Angemeldet als:</p>
+        <p class="headerElements" id="pAngemeldetHeader">--</p> <input type="button" class="headerElements"
+            id="btnAnmelden" value="Anmelden">
+    </div>
+    <div id="middle">
+
+        <!-- Load React. -->
+        <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
+        <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+        <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+        <script crossorigin src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <script crossorigin src="https://unpkg.com/react-plotly.js@1.0.2/dist/create-plotly-component.js"></script>
+
+        <div id="root"></div>
+        <!-- Load our React component. -->
+        <script src="stockchart2.js"></script>   
+    </div>
+    
+    
+
+
+</body>
+
+</html>

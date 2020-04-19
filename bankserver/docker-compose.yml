@@ -1,0 +1,34 @@
+version: '3'
+services:
+    bankserver:
+        build: . 
+        container_name: bankserver
+        command: node bankserver.js
+        ports:
+            - "8103:8103"
+        links:
+            - "banksqldb"
+        depends_on:
+            - banksqldb
+
+    banksqldb:
+        image: mysql:5.7
+        restart: always 
+        environment:
+            MYSQL_DATABASE: bankdb
+            MYSQL_USER: secureuser
+            MYSQL_PASSWORD: securepassword
+            MYSQL_RANDOM_ROOT_PASSWORD: '1'
+        ports: 
+            - "3306:3306"
+        volumes:
+            - bankdb:/var/lib/mysqlbank
+        
+
+
+volumes:
+    bankdb: 
+   
+    
+            
+

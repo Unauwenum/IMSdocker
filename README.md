@@ -1,2 +1,2 @@
-# IMSdocker
-IMS in docker
+# IMS
+Investment Management System
