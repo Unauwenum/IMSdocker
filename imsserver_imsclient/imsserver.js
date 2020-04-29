@@ -32,17 +32,11 @@ app.get('/', (req, res) => {
     res.redirect('/Home');
 });
 
-// Another GET Path - call it with: http://localhost:8080/s
+// Call auf die Stock Seite. Dabei wurd die URl http://localhost:8080/s verwendet die auf die React.js umleitet
 app.get('/s', (req, res) => {
-    console.log("Got a request on Stock XX");
+    console.log("Got a request for special Stock");
     //res.redirect('/Stock');
     res.redirect('http://localhost:3000/');
-});
-
-// Another GET Path that shows the actual Request (req) Headers - call it with: http://localhost:8080/request_info
-app.get('/request_info', (req, res) => {
-    console.log("Request content:", req)
-    res.send('This is all I got from the request:' + JSON.stringify(req.headers));
 });
 
 //Anfrage für Kauf und Verkauf
@@ -55,7 +49,6 @@ app.post('/transaction', (req, res, next) => {
         var post_content_json = JSON.parse(post_content);
         console.log("Client send 'post_content' with content:", post_content)
         //Aktienkauf
-        // 
         if(post_content_json['Transaktionsart'] == "Kauf") {
           axios.post(`http://${BANKSERVER}:8103/Kauf`, {
             post_content: `{"Abbuchung":[{"Kontonummer":${post_content_json['Kontonummer']},"Betrag":${post_content_json['Betrag']}}] }`
@@ -203,11 +196,7 @@ app.post('/transaction', (req, res, next) => {
           .catch(err => {
             conn.end();
           });
-        }
-
-        //console.log("Client send 'post_content' with content:", post_content)
-        // Set HTTP Status -> 200 is okay -> and send message
-        
+        }     
     }
     else {
         // There is no body and post_contend
@@ -216,26 +205,6 @@ app.post('/transaction', (req, res, next) => {
         res.status(400).json({ message: 'This function requries a body with "post_content"' });
     }
 });
-//dieser Request wird bei einer Transaktion (Kauf/Verkauf von Aktien) angestoßen
-//Er schiickt seinerseits einen Request an den Bankserver ob das notwendige Guthaben vorhanden ist
-//ist es vorhanden werden  die Aktien gekauft und der Client bekommt eine Rückmeldung ob die Transkation erfolgreich war
-app.post('/post_content', (req,res) => {
-
-  if (typeof req.body !== "undefined" && typeof req.body.post_content !== "undefined") {
-    var post_content = req.body.post_content;
-    console.log("Client send 'post_content' with content:", post_content)
-    // Set HTTP Status -> 200 is okay -> and send message
-
-    res.status(200).json({ message: 'I got your message: ' + post_content });
-  }
-  else {
-    // There is no body and post_contend
-    console.error("Client send no 'post_content'")
-    //Set HTTP Status -> 400 is client error -> and send message
-    res.status(400).json({ message: 'This function requries a body with "post_content"' });
-}
-
-})
 
 
 //Abfrage von UserID, Password un DepotID beim Login. Die Vorgehensweise nicht nicht sicher und daher völlig realitätsfremd. Es wird dabei auch nicht
@@ -415,7 +384,6 @@ app.post('/fetch_data', (req, res) => {
 // All requests to /static/... will be reidrected to static files in the folder "public"
 // call it with: http://localhost:8080/Home
 app.use('/Home', express.static('home'));
-app.use('/Stock', express.static('stock'));
 
 
 
@@ -432,7 +400,7 @@ const influxdb = new InfluxDB.InfluxDB({
    database : "aktiendb"
   })
 
-//Aufbauen verbindung imsdb
+//Aufbauen verbindung imsdb & db initatilisierung 
 
 const mariadb = require('mariadb');
 var mariadbcon = mariadb.createPool({
@@ -595,8 +563,3 @@ influxdb.getDatabaseNames().then(function(value) {
 
 
 }, 25000)
-/*
-var sqltestuser = 
-var sqltestdepot =
-var sqltestkauf =
-var sqlverkauf = */
