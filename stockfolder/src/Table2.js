@@ -123,8 +123,10 @@ class Table2 extends Component {
                   wert = wert * tabelleninhalt[i].Anzahl
                   console.log(wert);
                   var helpnumber = res.data.change
-                  veränderung = helpnumber.toFixed(2);
+                  veränderung = helpnumber;
                   helpnumber = veränderung * wert;
+                  helpnumber = helpnumber.toFixed(2);
+                  console.log("helpnumber:"+helpnumber+"Wert:"+wert+"veränderung:"+veränderung+"change:"+res.data.change);
                    // indiesem Fall nehmen wir den change Wert und multiplizieren diesen mit dem Gesamtwert
                   tabelleninhalt[i].Veränderung = helpnumber + '$';
                   wert = wert+"$"
