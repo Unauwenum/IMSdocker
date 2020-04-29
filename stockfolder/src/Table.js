@@ -6,6 +6,7 @@ var time = "change";
 var symbol = "IBM"
 let url;
 var symbol;
+//Tabelle, die die Daten einer einzelnen Aktie darstellt
 class Table extends Component {
     
     constructor(props) {
@@ -22,6 +23,7 @@ class Table extends Component {
       this.fetchdata()
       
   }
+  //lädt die   Daten der Aktie
   fetchdata () {
    url = window.location.href;
    symbol = url.substring(34,url.length);

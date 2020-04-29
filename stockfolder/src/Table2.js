@@ -2,16 +2,16 @@ import React, { Component } from 'react'
 import axios from 'axios';
 import mycookie from './Cookie';
 import Popup from './Popup2';
-import history from './history';
+
 const SERVER = process.env.SERVER || "localhost";
 var time = "change";
 var symbol;
-var anzahl;
+
 var tabelleninhalt;
 var object;
 
 
- 
+ //Tabelle kümmert sich um Darstellung der Aktien eines Users
 class Table2 extends Component {
     
     constructor(props) {
@@ -34,6 +34,7 @@ class Table2 extends Component {
       this.fetchdepotinhalt()
       
   }
+  
   //Aktie aus dem Button wird ausgelesen
   togglePopupup(e, e2) {
    console.log('event: '+JSON.stringify(e));
@@ -50,15 +51,14 @@ class Table2 extends Component {
    this.fetchdepotinhalt();
   }
 
-
+  //Depotinhalt eines Nutzers wird geladen und mit den aktuellen werten kombiniert
   fetchdepotinhalt() {
     
    const pointer = this;
         
        object = new Object();
        tabelleninhalt = [];
-        var wert;
-        var veränderung;
+        
        console.log(pointer);
        axios.post(`http://${SERVER}:8080/fetch_depotinhalt`, {
            // definition of actual content that should be sned with post as JSON
@@ -70,16 +70,13 @@ class Table2 extends Component {
                console.log(`statusCode: ${res.status}`)
                // Print out actual data:
                //alles symbole in einem Array
-               console.log('hier kommt das resultat aus der 1. Anfrage')
-               console.log(res.data);
+              
                for ( var i = 0; i < res.data.length; i++) {
                 
                    object = new Object();
                    object.Aktie = res.data[i].Symbol
                    object.Anzahl = res.data[i].Anzahl
                    tabelleninhalt[i] = object
-                   console.log(tabelleninhalt[i].Anzahl);
-                   console.log(tabelleninhalt[i].Aktie);
                }//end for
                //hier wird für jedes symbol die werte zugewiesen
               this.fetchdata();
@@ -91,11 +88,10 @@ class Table2 extends Component {
 
    }//end fetchdepotinhalt
 
-    //für jedes Object bzw symbol in tabelleninhalt wwerden wert und veränderung hinzugefügt
+    //für jedes Object bzw symbol des Depotinhalts wwerden wert und veränderung hinzugefügt
    //in diesem Fall werden die Werte mit der Anzahl multipliziert
   async fetchdata () {
-     console.log('getht in fetch data rein');
-     console.log(tabelleninhalt.length);
+    
     const pointer = this;
   
    for( var i = 0; i < tabelleninhalt.length; i ++){
@@ -118,10 +114,9 @@ class Table2 extends Component {
                   var helpnumber2 = res.data.wert;
                   wert = helpnumber2 - 0
                   //wert mal Anzahl ergibt den Gesamtwert
-                  console.log('anzahl:'+tabelleninhalt[i].Anzahl);
-                  console.log(wert);
+                  
                   wert = wert * tabelleninhalt[i].Anzahl
-                  console.log(wert);
+                 
                   var helpnumber = res.data.change
                   veränderung = helpnumber;
                   helpnumber = veränderung * wert;
@@ -130,7 +125,7 @@ class Table2 extends Component {
                    // indiesem Fall nehmen wir den change Wert und multiplizieren diesen mit dem Gesamtwert
                   tabelleninhalt[i].Veränderung = helpnumber + '$';
                   wert = wert+"$"
-                  console.log(tabelleninhalt[i]);
+            
                   tabelleninhalt[i].Gesamtwert = wert
                   
                  

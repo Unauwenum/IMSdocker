@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Plot from 'react-plotly.js';
 
-
+//enthält den Plot und 2 Buttons zum Switchen
 //variablen um später symbol aus url auszulesen
 let url;
 var symbol;
@@ -27,7 +27,7 @@ class Stock extends React.Component {
         this.fetchdata()
         
     }
-
+    //arraydaten werden geladen
     fetchdata() {
         
         url = window.location.href;
@@ -35,7 +35,7 @@ class Stock extends React.Component {
         const pointer = this;
         let stockChartXValuesFunction = [];
         let stockChartYValuesFunction = [];
-        console.log(pointer);
+        
         axios.post(`http://${SERVER}:8080/fetch_data`, {
             // definition of actual content that should be sned with post as JSON
             post_content: `{"symbol": "${symbol}", "time": "${this.state.time}"}`
@@ -45,8 +45,7 @@ class Stock extends React.Component {
                 // Status code represents: https://de.wikipedia.org/wiki/HTTP-Statuscode
                 console.log(`statusCode: ${res.status}`)
                 // Print out actual data:
-                console.log(res.data)
-                console.log(res.data[0])
+             
                 for(var i = 0; i<res.data.length; i++) {
                     stockChartXValuesFunction.push(res.data[i].time);
                     stockChartYValuesFunction.push(res.data[i].close)

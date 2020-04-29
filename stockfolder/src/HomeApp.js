@@ -2,7 +2,7 @@ import React from 'react';
 import Table1 from './Table1';
 import Table2 from './Table2';
 import Headerline from './Headerline';
-import mycookie from './Cookie';
+/// diese Klasse rendert Headerline, Tabelle für aktuelle Kurse (Table1) und Tabelle für die Aktien des Users (Table2)
 class HomeApp extends React.Component {
 
     componentDidMount(){

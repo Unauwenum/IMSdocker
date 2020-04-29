@@ -1,15 +1,14 @@
 //dieses Popup erscheint wenn man ein symbol verkaufen möchte
 import React from 'react';
 import axios from 'axios';
-import histroy from './history';
 import mycookie from './Cookie';
 const SERVER = process.env.SERVER || "localhost";
 var time = "change";
 var symbol;
 var anzahlallowed;
-var url;
-var wert;
 
+var wert;
+//kümmert sich um Verkaufsprozess
 class Popup2 extends React.Component {
     constructor(props) {
     super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
@@ -22,10 +21,11 @@ class Popup2 extends React.Component {
     this.fetchdata()
     
 }
+  //aktueller wert wiRD GELADEN
   fetchdata() {
     //Symbol wurde beim Render() aus dem Button übergeben
    symbol = this.props.aktie.Aktie;
-   console.log('Objekt:'+JSON.stringify(symbol))
+   
     axios.post(`http://${SERVER}:8080/fetch_data`, {
               // definition of actual content that should be sned with post as JSON
               post_content: `{"symbol": "${symbol}", "time": "${time}"}`
@@ -35,8 +35,7 @@ class Popup2 extends React.Component {
                   // Status code represents: https://de.wikipedia.org/wiki/HTTP-Statuscode
                   console.log(`statusCode: ${res.status}`)
                   // Print out actual data:
-                  console.log(res.data)
-                  console.log(res.data.wert)
+           
                   wert = res.data.wert;
                   this.setState({
                     buydata: {Anzahl: 0, Aktie: symbol, Gesamtwert: 0}
@@ -58,13 +57,12 @@ class Popup2 extends React.Component {
         buydata: {Anzahl: parseInt(event.target.value), Aktie: symbol, Gesamtwert: wert*event.target.value}
       })
     }
+    // Verkaufprozeeeeess wird angestoßen
     onVerkaufClicked() {
-    console.log(mycookie);
+    
     var Kontonummer = mycookie.kontonummer;
     const UserID = mycookie.userid;
     anzahlallowed = this.props.anzahl.Anzahl
-    console.log('Anzahl allowed:'+anzahlallowed);
-    console.log('Anzahl State:'+this.state.buydata.Anzahl);
       //einfache Eingabeprüfung auf Integer
       if(Number.isInteger(this.state.buydata.Anzahl) && anzahlallowed >= this.state.buydata.Anzahl){
       axios.post(`http://${SERVER}:8080/transaction`, {
@@ -76,8 +74,7 @@ class Popup2 extends React.Component {
                   // Status code represents: https://de.wikipedia.org/wiki/HTTP-Statuscode
                   console.log(`statusCode: ${res.status}`)
                   // Print out actual data:
-                  console.log(res.data)
-                  console.log(res.data.wert)
+                  
                   wert = res.data.wert;
                   alert(res.data.message);
                     

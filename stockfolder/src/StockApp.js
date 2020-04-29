@@ -7,7 +7,7 @@ import './App.css';
 import Headerline from './Headerline';
 
 
-
+//Stockapp enthält den Graphen, Tabelle und enthält die Logik zum öffnen des Popups
 
 class StockApp extends React.Component {
   constructor() {

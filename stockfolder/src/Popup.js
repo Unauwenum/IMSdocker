@@ -1,13 +1,13 @@
 import React from 'react';
 import axios from 'axios';
-import histroy from './history';
 import mycookie from './Cookie';
 const SERVER = process.env.SERVER || "localhost";
 var time = "change";
 var symbol;
 var url;
 var wert;
-
+//kümmert sich um den Kaufprozess
+//
 class Popup extends React.Component {
     constructor(props) {
     super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
@@ -20,6 +20,7 @@ class Popup extends React.Component {
     this.fetchdata()
     
 }
+  //der aktuelle Wert wird nochmals geladen
   fetchdata() {
     url = window.location.href;
     symbol = url.substring(34,url.length);
@@ -49,14 +50,15 @@ class Popup extends React.Component {
               })
   
     } 
-    
+    //Nutzeringabe wird mit Wert multipliziert
     onAnzahlChange(event) {
       this.setState({
         buydata: {Anzahl: parseInt(event.target.value), Aktie: symbol, Gesamtwert: wert*event.target.value}
       })
     }
+    //der Kauf wird angestoßen
     onKaufClicked() {
-    console.log(mycookie);
+   
     var Kontonummer = mycookie.kontonummer;
     const UserID = mycookie.userid;
       //einfache Eingabeprüfung auf Integer
@@ -70,8 +72,7 @@ class Popup extends React.Component {
                   // Status code represents: https://de.wikipedia.org/wiki/HTTP-Statuscode
                   console.log(`statusCode: ${res.status}`)
                   // Print out actual data:
-                  console.log(res.data)
-                  console.log(res.data.wert)
+                 
                   wert = res.data.wert;
                   alert(res.data.message);
                     

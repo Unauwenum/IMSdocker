@@ -5,6 +5,7 @@ import "./Login.css";
 import axios from 'axios';
 import mycookie from './Cookie';
 const SERVER = process.env.SERVER || "localhost";
+//diese Seite rendert ein einfaches Formular umd kümmert sich umk den Loginprozess
 
 
 class LoginApp extends React.Component {
@@ -23,6 +24,7 @@ class LoginApp extends React.Component {
             this.handleChangeUser = this.handleChangeUser.bind(this);
             this.handleSubmit = this.handleSubmit.bind(this);
         }
+        // Usereingabe darf nicht leer sein
   validateForm() {
     return this.state.user.length > 0 && this.state.password.length > 0;
   }
@@ -33,6 +35,8 @@ class LoginApp extends React.Component {
   handleChangeUser(event) {
       this.setState({user: event.target.value});
   }
+  //wird der Button gedrückt wiord das Event ausgelöst, hierbei wird der Login validiert (schlechte Vorgehensweise)
+  //am Ende wird das Cookie befüllt
   handleSubmit(event) {
     event.preventDefault();
     //User überprüfen

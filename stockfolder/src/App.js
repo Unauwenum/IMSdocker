@@ -1,11 +1,11 @@
 import React from 'react';
-import { Router, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom'; //FÜr dynamisches Routing
 import HomeApp from './HomeApp';
 import LoginApp from './LoginApp';
 import StockApp from './StockApp';
 import './App.css';
-import history from './history';
-import Headerline from './Headerline';
+import history from './history'; //Für dynamisches Routing
+
 
 
 
@@ -22,7 +22,7 @@ class App extends React.Component {
       showPopup: !this.state.showPopup
     });
   }
-
+  //je nach URL wird die entsprechende Seite gerendert
   render() {
     return (
     <Router history={history}>
@@ -32,7 +32,7 @@ class App extends React.Component {
           <Switch>
               <Route exact path='/' component={LoginApp} />
               <Route path='/Home' component={HomeApp} />
-              <Route path='/Stock' component={StockApp} />
+              <Route path='/Stock' component={StockApp} /> 
           </Switch>
         </div>
       </Router>

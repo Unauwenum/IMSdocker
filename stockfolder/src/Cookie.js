@@ -5,3 +5,5 @@ const mycookie = new Object();
         mycookie.username = "";
         
 export default mycookie;
+
+//Globaler provisorischer Cookie

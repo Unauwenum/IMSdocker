@@ -8,6 +8,7 @@ var tabelleninhalt;
 var symbol;
 var time = 'change';
 var depotwert;
+//die Headerline
 
 class Headerline extends React.Component {
 
@@ -18,6 +19,8 @@ class Headerline extends React.Component {
           username: "-"
         };
       }
+      //diese Methode wird bei initialisierung der Headerline aufgerufen
+      //Der username wird aus dem Cookie geladen
       update(){
         
         this.setState( {  
@@ -25,7 +28,7 @@ class Headerline extends React.Component {
     });
         this.fetchdepotwert();
       }
-     
+     //diese Methode lädt den Depotinhalt eines Users, später wird der Depotinhalt mit dem aktuellen Aktienwert kombiniert
       fetchdepotwert() {
     
         const pointer = this;
