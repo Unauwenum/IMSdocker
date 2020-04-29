@@ -225,8 +225,7 @@ setTimeout(function() {
           dataobj.setMilliseconds(0);
           //Influxdb speichert in Nanosekunden
           timestamp = dataobj.getTime() * 1000 * 1000;
-          console.log('Timestamp für Dailyaktien:' +timestamp);
-          console.log(dataobj);
+         
           fields= new Object();
           //setzen der fields
           fields.open = open;
@@ -264,7 +263,7 @@ setTimeout(function() {
     
       //Einfügen in Influxdb
       for (var i = 0; i < iarray.length; i++) {
-        console.log(i);
+        
         var b = iarray[i];
         /*IWriteOptions = {
           retentionPolicy: '150d'
@@ -325,7 +324,7 @@ mariadbcon.getConnection().then(conn => {
           //die zusätzliche -1 kommt daher, da die Tageswerte des heutigen tages erst am nächsten tag erscheinen
           //andere Zeitzone--> 6Stunden minus
           var dataobj = new Date(today);
-          console.log(dataobj);
+         // console.log(dataobj);
           dataobj.setHours(dataobj.getHours() - 4);
           dataobj.setMinutes(dataobj.getMinutes() - z  -2);
           
@@ -338,12 +337,12 @@ mariadbcon.getConnection().then(conn => {
           //  console.log(helpstring);
            // console.log('Hier kommt das Datenobjet');
            // console.log(dataobj);
-           console.log('dataobject vor +2'+dataobj);
+         //  console.log('dataobject vor +2'+dataobj);
             
             dataobj.setMinutes(dataobj.getMinutes() - y);
            // console.log(dataobj);
             y = y+1;
-            console.log('y:'+y);
+        //    console.log('y:'+y);
           }
             //hier wird Datum in die richtige Form zum abfragen gebracht
             var ISOString = dataobj.toISOString();
@@ -351,8 +350,8 @@ mariadbcon.getConnection().then(conn => {
             ISOString = ISOString.substr(0,10);
             ISOString = ISOString+" "+helpstring+"00";
 
-            console.log(ISOString);
-            console.log(data['Time Series (1min)'][ISOString])
+          //  console.log(ISOString);
+         //   console.log(data['Time Series (1min)'][ISOString])
             //etwas unschön aber falls der Wert undefined ist, wird der nächste schleifendurchlauf eingeleitet
             if(data['Time Series (1min)'][ISOString] == undefined) {
               z++;
@@ -368,8 +367,8 @@ mariadbcon.getConnection().then(conn => {
             dataobj.setSeconds(0);
             dataobj.setMilliseconds(0);
             timestamp = dataobj.getTime() * 1000 * 1000;
-            console.log('Timestamp: '+ timestamp);
-            console.log('Timestamp für einzelaktien');
+          //  console.log('Timestamp: '+ timestamp);
+         //   console.log('Timestamp für einzelaktien');
             fields= new Object();
             //setzen der fields
             fields.open = open;
@@ -397,7 +396,7 @@ mariadbcon.getConnection().then(conn => {
 
 
         } //end for
-        console.log(iarray.length);
+      //  console.log(iarray.length);
         //Einfügen in Influxdb
         for (var i = 0; i < iarray.length; i++) {
    
